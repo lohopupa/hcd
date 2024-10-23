@@ -61,7 +61,7 @@ func startTui(paths []string) {
 		case tcell.KeyEnter:
 			app.Stop()
 			p, _ := list.GetItemText(list.GetCurrentItem())
-			fmt.Println(p)
+			fmt.Print(p)
 			cd(p)
 		}
 		
