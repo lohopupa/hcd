@@ -31,7 +31,7 @@ func startTui(paths []string) {
 		SetFieldWidth(0).
 		SetChangedFunc(func(text string) {
 			list.Clear()
-			for _, item := range sortByLevenshteinDistance(paths, text) {
+			for _, item := range filterBySubstr(paths, text) {
 				list.AddItem(item, "", 0, nil)
 			}
 			if list.GetItemCount() > 0 {
@@ -146,6 +146,18 @@ func min(x, y int) int {
 	}
 	return y
 }
+
+func filterBySubstr(stringsList []string, query string) []string {
+	var filtered []string
+	query = strings.ToLower(query)
+	for _, str := range stringsList {
+		if strings.Contains(strings.ToLower(str), query) {
+			filtered = append(filtered, str)
+		}
+	}
+	return filtered
+}
+
 
 func sortByLevenshteinDistance(stringsList []string, query string) []string {
 	type pair struct {
